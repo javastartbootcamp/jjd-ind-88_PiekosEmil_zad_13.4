@@ -80,11 +80,12 @@ class CustomListTest {
         customList.add("c");
 
         // when
-        customList.addToIndex(1, "a1");
+        customList.add(1, "a1");
 
         // then
         assertThat(customList.size()).isEqualTo(4);
-        assertThat(customList.get(0)).isEqualTo("a");
+        String firstItem = customList.get(0);
+        assertThat(firstItem).isEqualTo("a");
         assertThat(customList.get(1)).isEqualTo("a1");
         assertThat(customList.get(2)).isEqualTo("b");
         assertThat(customList.get(3)).isEqualTo("c");
@@ -99,7 +100,7 @@ class CustomListTest {
         customList.add("c");
 
         // when
-        customList.addToIndex(3, "c1");
+        customList.add(3, "c1");
 
         // then
         assertThat(customList.size()).isEqualTo(4);
