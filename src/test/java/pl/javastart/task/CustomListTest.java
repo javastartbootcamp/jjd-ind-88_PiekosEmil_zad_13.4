@@ -1,8 +1,12 @@
 package pl.javastart.task;
 
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static org.junit.jupiter.api.Assertions.assertAll;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class CustomListTest {
 
@@ -54,19 +58,19 @@ class CustomListTest {
     }
 
     @Test
-    public void shouldAdd100Elements() {
+    public void shouldAdd1000Elements() {
         // given
         CustomList<Integer> customList = new CustomList<>();
 
         // when
-        for (int i = 0; i < 100; i++) {
+        for (int i = 0; i < 1000; i++) {
             customList.add(i + 1);
         }
 
         // then
         assertThat(customList.size()).isEqualTo(100);
 
-        for (int i = 0; i < 100; i++) {
+        for (int i = 0; i < 1000; i++) {
             assertThat(customList.get(i)).isEqualTo(i + 1);
         }
     }
@@ -144,4 +148,58 @@ class CustomListTest {
         assertThat(customList.get(1)).isEqualTo("b");
     }
 
+    @Nested
+    class OutOfBoundsTest {
+        private CustomList<String> customList;
+
+        @BeforeEach
+        void beforeEach() {
+            customList = new CustomList<>();
+            customList.add("a");
+            customList.add("b");
+            customList.add("c");
+        }
+
+        @Test
+        public void shouldThrowWhenGetOutOfBounds() {
+            assertAll(
+                    () -> assertThrows(
+                            IndexOutOfBoundsException.class,
+                            () -> customList.get(-5)
+                    ),
+                    () -> assertThrows(
+                            IndexOutOfBoundsException.class,
+                            () -> customList.get(5)
+                    )
+            );
+        }
+
+        @Test
+        public void shouldThrowWhenAddOutOfBounds() {
+            assertAll(
+                    () -> assertThrows(
+                            IndexOutOfBoundsException.class,
+                            () -> customList.add(10, "d")
+                    ),
+                    () -> assertThrows(
+                            IndexOutOfBoundsException.class,
+                            () -> customList.add(-10, "d")
+                    )
+            );
+        }
+
+        @Test
+        public void shouldThrowWhenRemoveOutOfBounds() {
+            assertAll(
+                    () -> assertThrows(
+                            IndexOutOfBoundsException.class,
+                            () -> customList.remove(10)
+                    ),
+                    () -> assertThrows(
+                            IndexOutOfBoundsException.class,
+                            () -> customList.remove(-10)
+                    )
+            );
+        }
+    }
 }
