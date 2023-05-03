@@ -68,7 +68,7 @@ class CustomListTest {
         }
 
         // then
-        assertThat(customList.size()).isEqualTo(100);
+        assertThat(customList.size()).isEqualTo(1000);
 
         for (int i = 0; i < 1000; i++) {
             assertThat(customList.get(i)).isEqualTo(i + 1);
