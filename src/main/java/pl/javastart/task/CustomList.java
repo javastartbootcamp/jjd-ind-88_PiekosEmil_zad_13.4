@@ -61,16 +61,6 @@ public class CustomList<T> {
 
     @Override
     public String toString() {
-        int i = 0;
-        System.out.print("[");
-        for (Object object : objects) {
-            if (i < size() - 1) {
-                System.out.print(object + ", ");
-            } else if (i <= size() - 1) {
-                System.out.print(object);
-            }
-            i++;
-        }
-        return "]";
+        return Arrays.toString(objects);
     }
 }
